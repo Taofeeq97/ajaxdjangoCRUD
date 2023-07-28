@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Tasks {% endblock %}
+
+
+
+{% block content %}
+<div class="col-8 mt-5">
+    <form method="POST"id="createTaskForm" data-url=" {% url 'task_list' %}" class="form-inline justify-center-center">
+        {% csrf_token %}
+        {% for fields in form %}
+            {{fields.label}}
+            {{fields}}
+        {% endfor %}
+        <button type="button" class="btn btn-outline-success" id="createButton">Create</button>
+    </form> 
+
+</div>
+<div class="col-5 mt-5" id="taskList">
+    {% for task in tasks %}
+
+    <div class="card mb-1"m id="taskCard" data-id="{{task.id}}" style="{% if task.completion %} text-decoration:line-through {% endif %}">
+        <div class="card-body">
+          {{task}}
+
+          <button type="button" class="btn-close float-right" data-id="{{task.id}}" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+ 
